@@ -1,10 +1,11 @@
-run = "npm install && cd Server && npm install && cd .. && npm run dev"
+run = "npm install && npm run dev"
 hidden = [".config", "package-lock.json"]
 
 [env]
 XDG_CONFIG_HOME = "/home/runner/.config"
 PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
 npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
+PORT = "3103"
 
 [nix]
 channel = "stable-22_11"
