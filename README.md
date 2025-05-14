@@ -9,11 +9,30 @@
 - **Node 版本: 16.0+**
 1. 需要准备两个 Terminal，分别启动服务端、前端页面。
 2. 开通 ASR、TTS、LLM、RTC 等服务，可参考 [开通服务](https://www.volcengine.com/docs/6348/1315561?s=g) 进行相关服务的授权与开通。
-3. **根据你自定义的 
-RoomId、UserId 以及申请的 AppID、BusinessID(如有)、Token、ASR AppID、TTS AppID，修改 `src/config/config.ts` 文件中 `ConfigFactory` 中 `BaseConfig` 的配置信息**。
+3. **根据你自定义的 RoomId、UserId 以及申请的 AppID、BusinessID(如有)、Token、ASR AppID、TTS AppID，修改 `src/config/config.ts` 文件中 `ConfigFactory` 中 `BaseConfig` 的配置信息**。
 4. 使用火山引擎控制台账号的 [AK、SK](https://console.volcengine.com/iam/keymanage?s=g), 修改 `Server/app.js` 文件中的 `ACCOUNT_INFO`。
 5. 若您使用的是官方模型, 需要在 [火山方舟-在线推理](https://console.volcengine.com/ark/region:ark+cn-beijing/endpoint?config=%7B%7D&s=g) 中创建接入点, 并将模型对应的接入点 ID 填入 `src/config/common.ts` 文件中的 `ARK_V3_MODEL_ID`, 否则无法正常启动智能体。
 6. 如果您已经自行完成了服务端的逻辑，可以不依赖 Demo 中的 Server，直接修改前端代码文件 `src/config/index.ts` 中的 `AIGC_PROXY_HOST` 请求域名和接口，并在 `src/app/api.ts` 中修改接口的参数配置 `APIS_CONFIG`。
+
+## Replit 环境配置说明
+在 Replit 环境中运行本项目时，需要进行以下配置：
+
+1. **环境变量配置**
+   在 Replit 的 "Secrets" 面板中添加以下必需的环境变量：
+   - ACCESS_KEY_ID：火山引擎访问密钥ID
+   - SECRET_KEY：火山引擎访问密钥
+   - APP_ID：应用ID
+   - APP_KEY：应用密钥
+
+2. **运行说明**
+   - Replit 会自动安装依赖并启动服务
+   - 前端服务运行在 3000 端口
+   - 后端服务运行在 3103 端口
+
+3. **注意事项**
+   - 确保所有敏感信息都通过 Replit Secrets 配置，不要直接写在代码中
+   - 如果遇到"AI 准备中"的问题，请检查环境变量是否配置正确
+   - 如果需要本地运行，请参考下方的本地开发说明
 
 ## 快速开始
 请注意，服务端和 Web 端都需要启动, 启动步骤如下:
@@ -49,7 +68,7 @@ yarn dev
 | **[StartVoiceChat]Failed(Reason: The task has been started. Please do not call the startup task interface repeatedly.)** 报错 | 由于目前设置的 RoomId、UserId 为固定值，重复调用 startAudioBot 会导致出错，只需先调用 stopAudioBot 后再重新 startAudioBot 即可。 |
 | 为什么我的麦克风正常、摄像头也正常，但是设备没有正常工作? | 可能是设备权限未授予，详情可参考 [Web 排查设备权限获取失败问题](https://www.volcengine.com/docs/6348/1356355?s=g)。 |
 | 接口调用时, 返回 "Invalid 'Authorization' header, Pls check your authorization header" 错误 | `Server/app.js` 中的 AK/SK 不正确 |
-| 什么是 RTC | **R**eal **T**ime **C**ommunication, RTC 的概念可参考[官网文档](https://www.volcengine.com/docs/6348/66812?s=g)。 |
+| 什么是 RTC | **R**eal **T**ime **C**ommunication, RTC 的概念可参考[官网文档](https://www.volcengine.com/docs/6348/66812?s=g)。 |
 | 不清楚什么是主账号，什么是子账号 | 可以参考[官方概念](https://www.volcengine.com/docs/6257/64963?hyperlink_open_type=lark.open_in_browser&s=g) 。|
 
 如果有上述以外的问题，欢迎联系我们反馈。
