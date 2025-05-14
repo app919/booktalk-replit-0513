@@ -319,51 +319,39 @@ export class ConfigFactory {
 
   // 动态获取token方法
   async fetchToken() {
-    // 动态生成 RoomId 和 UserId
-    const randomSuffix = Math.floor(Math.random() * 100000000).toString();
-    
-    this.BaseConfig.RoomId = `Room${randomSuffix}`;
-    this.BaseConfig.UserId = `User${randomSuffix}`;
-    
-    const { AppId, RoomId, UserId } = this.BaseConfig;
-    
-    // 请求 Token
-    const url = 'http://localhost:3103/api/getToken';
-    
-    console.log('【DEBUG】正在请求 Token:', { 
-      url, 
-      body: { AppId, RoomId, UserId }
-    });
-    
     try {
-      const res = await fetch(url, {
+      // 在 Replit 环境中使用动态获取的域名
+      const REPLIT_URL = typeof window !== 'undefined' ? window.location.origin : '';
+      const response = await fetch(`${REPLIT_URL}/api/getToken`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ AppId, RoomId, UserId }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          AppId: this.BaseConfig.AppId,
+          RoomId: this.BaseConfig.RoomId,
+          UserId: this.BaseConfig.UserId,
+        }),
       });
-      
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`HTTP error! status: ${res.status}, body: ${errorText}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
-      const data = await res.json();
-      console.log('【DEBUG】Token 请求结果:', data);
-      
-      // 使用服务器返回的 RoomId 和 UserId 覆盖本地的配置
-      if (data.roomId) this.BaseConfig.RoomId = data.roomId;
-      if (data.userId) this.BaseConfig.UserId = data.userId;
-      
+
+      const data = await response.json();
       this.BaseConfig.Token = data.token;
-      console.log('【DEBUG】RTC配置:', {
-        RoomId: this.BaseConfig.RoomId,
-        UserId: this.BaseConfig.UserId,
-        Token: this.BaseConfig.Token
+      this.BaseConfig.RoomId = data.roomId;
+      this.BaseConfig.UserId = data.userId;
+
+      console.log('Token获取成功:', {
+        token: this.BaseConfig.Token.substring(0, 10) + '...',
+        roomId: this.BaseConfig.RoomId,
+        userId: this.BaseConfig.UserId
       });
-      
-      return data.token;
+
+      return this.BaseConfig.Token;
     } catch (error) {
-      console.error('【ERROR】Token 请求失败:', error);
+      console.error('获取Token失败:', error);
       throw error;
     }
   }
