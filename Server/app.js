@@ -18,6 +18,16 @@ app.use(cors({
   origin: '*'
 }));
 
+// 检查必要的环境变量
+const requiredEnvVars = ['ACCESS_KEY_ID', 'SECRET_KEY', 'APP_ID', 'APP_KEY'];
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingEnvVars.length > 0) {
+  console.error('错误: 缺少必要的环境变量:', missingEnvVars.join(', '));
+  console.error('请确保创建了 .env 文件并包含所有必要的环境变量');
+  process.exit(1);
+}
+
 /**
  * @notes 在 https://console.volcengine.com/iam/keymanage/ 获取 AK/SK
  */
@@ -38,7 +48,7 @@ const APP_ID = process.env.APP_ID;
 const APP_KEY = process.env.APP_KEY;
 
 console.log('后端环境变量 APP_ID:', APP_ID);
-console.log('后端环境变量 APP_KEY:', APP_KEY);
+console.log('后端环境变量 APP_KEY:', APP_KEY ? '已设置' : '未设置');
 
 app.use(async (ctx, next) => {
   if (ctx.url.startsWith('/api/getToken') && ctx.method.toLowerCase() === 'post') {
