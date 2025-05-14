@@ -1,0 +1,199 @@
+/**
+ * Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. All Rights Reserved.
+ * SPDX-license-identifier: BSD-3-Clause
+ */
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--color-border-2);
+
+  @media screen and (max-width: 768px) {
+    padding: 0 16px;
+    height: 56px;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      img {
+        height: 24px;
+      }
+    }
+  }
+
+  .operation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    @media screen and (max-width: 768px) {
+      gap: 12px;
+    }
+
+    .button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 5px 16px;
+      gap: 8px;
+      height: 32px;
+      background: white;
+      border-radius: 6px;
+      border: 1px solid var(--line-color-border-2, rgba(234, 237, 241, 1));
+      cursor: pointer;
+      user-select: none;
+
+      @media screen and (max-width: 768px) {
+        padding: 4px 12px;
+        height: 28px;
+        font-size: 13px;
+      }
+
+      &:hover {
+        background: var(--background-color-bg-2, rgba(247, 248, 250, 1));
+      }
+
+      &:active {
+        background: var(--background-color-bg-3, rgba(242, 243, 245, 1));
+      }
+
+      .text {
+        font-family: PingFang SC;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: 0.003em;
+        text-align: left;
+        color: var(--text-color-text-1, rgba(27, 30, 61, 1));
+
+        @media screen and (max-width: 768px) {
+          font-size: 13px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+    img {
+      height: 24px;
+    }
+
+  &-text {
+    background: linear-gradient(90deg, #004FFF 38.86%, #9865FF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 16px;
+  }
+}
+
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 8px;
+  justify-content: space-between;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .settings-button {
+    color: #666;
+    padding: 4px;
+    border: none;
+    background: transparent;
+
+    &:hover {
+      color: #1664FF;
+      background: rgba(22, 100, 255, 0.1);
+    }
+  }
+}
+
+.header-setting-btn {
+  background-color: transparent;
+  border: none;
+  margin-right: 24px;
+  color: #000000;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header-pop {
+  :global {
+    .ant-popover-arrow {
+      //   display: none;
+      left: 16px;
+      .ant-popover-arrow-content {
+        &:before {
+          background-color: white;
+        }
+      }
+    }
+    .ant-popover-content {
+      margin-left: 12px;
+    }
+    .ant-popover-inner {
+      margin-right: 12px;
+    }
+    .ant-popover-inner-content {
+      padding: 0;
+      background-color: white;
+      position: relative;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 7px;
+      padding-top: 7px;
+      cursor: pointer;
+      color: black;
+
+      div {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 20px;
+        &:hover {
+          color: #1664ff;
+        }
+      }
+    }
+  }
+}
+
+.divider {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  min-width: 70%;
+  width: 70%;
+}
+
+.header-right-text {
+  color: #000000;
+  margin-right: 24px;
+  cursor: pointer;
+}
